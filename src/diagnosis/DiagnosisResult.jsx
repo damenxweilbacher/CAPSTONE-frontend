@@ -51,7 +51,7 @@ function DiagnosisResult() {
     return <div className="container error-message">{error}</div>;
   }
 
-  // extract name from the data structure
+  // extract name from data 
   const extractName = () => {
     if (!diagnosisData) return "Diagnosis Result";
     
@@ -91,12 +91,18 @@ function DiagnosisResult() {
   return (
     <div className="container">    
       <div className="card">
-      <h1 className='font-bold'> Vehicle Status: {state.passedThreshold ? "Issues detected" : "No major issues detected"}</h1>
-      <h2 className='font-bold'>{diagnosisName}</h2>
-        <h3 className='font-bold'>{formattedDescription}</h3>
+        <h1 className='font-bold'> Vehicle Status: {state.passedThreshold ? "Issues detected" : "No major issues detected"}</h1>
+        
+        {state.passedThreshold ? (
+          <>
+            <h2 className='font-bold'>{diagnosisName}</h2>
+            <h3 className='font-bold'>{formattedDescription}</h3>
+          </>  // will only display if determined that vehicle is still in good condition.
+        ) : (
+          <p className="mt-4">Your vehicle appears to be in good condition based on your responses.</p>
+        )}
       </div>
 
-      
       {state && (
         <div className="card">
           <h2 className='font-bold'>Quiz Statistics</h2>
@@ -105,7 +111,7 @@ function DiagnosisResult() {
       )}
 
       <div>
-        <h2 className='font-bold' > If you need more help regarding your vehicle, please contact:</h2>
+        <h2 className='font-bold'> If you need more help regarding your vehicle, please contact:</h2>
         <p> Toyota Service Guam: (671) 649-6410 </p>
         <p> BMW Service Guam: (671) 649-6410</p>
       </div>
