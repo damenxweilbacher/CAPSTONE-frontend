@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import API_BASE_URL from '../config';
 
 function CategoryQuiz() {
   const { categoryName } = useParams();
@@ -26,7 +27,7 @@ function CategoryQuiz() {
   
   useEffect(() => {
     if (selectedCar && !car) {
-      axios.get(`http://localhost:3000/cars/${selectedCar}`)
+      axios.get(`${API_BASE_URL}/cars/${selectedCar}`)
         .then(response => {
           setCar(response.data);
         })
@@ -42,7 +43,7 @@ function CategoryQuiz() {
       setLoading(true);
       console.log(`Fetching prompts for category: ${selectedCategory}`);
       axios
-        .get(`http://localhost:3000/category/${selectedCategory}/diagnosis_prompts`, {
+        .get(`${API_BASE_URL}/category/${selectedCategory}/diagnosis_prompts`, {
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

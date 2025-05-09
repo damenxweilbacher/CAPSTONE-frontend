@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 function DiagnosisResult() {
   const { category } = useParams();
@@ -14,7 +15,7 @@ function DiagnosisResult() {
     const fetchDiagnosis = async () => {
       try {
         console.log("Fetching diagnosis for category:", category);
-        const response = await axios.get(`http://localhost:3000/category/${category}/diagnoses`); 
+        const response = await axios.get(`${API_BASE_URL}/category/${category}/diagnoses`); 
         // sends request to backend for diagnosis
         console.log("Diagnosis data from backend:", response.data);
         

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../config';
 
 function ManageCars() {
   const [cars, setCars] = useState([]);
@@ -23,7 +24,7 @@ function ManageCars() {
   const fetchCars = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:3000/cars`);
+      const response = await axios.get(`${API_BASE_URL}/cars`);
       console.log('Cars data:', response.data);
       setCars(response.data);
       setError(null);
@@ -42,7 +43,7 @@ function ManageCars() {
 
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:3000/cars/${carId}`);
+      await axios.delete(`${API_BASE_URL}/cars/${carId}`);
       
       // update list 
       setCars(cars.filter(car => car.id !== carId));
@@ -103,7 +104,7 @@ function ManageCars() {
       setLoading(true);
       
       console.log('updating car:', updatedCarData);
-      const response = await axios.put(`http://localhost:3000/cars/${editingCar.id}`, updatedCarData);
+      const response = await axios.put(`${API_BASE_URL}/cars/${editingCar.id}`, updatedCarData);
       console.log('updated data:', response.data);
       
       // update the car in the local state
