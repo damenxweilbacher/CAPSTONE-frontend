@@ -23,7 +23,7 @@ function DiagnosisQuiz() {
       return;
     }
 
-    // Fetch car details
+    // retrieve car details
     axios.get(`http://localhost:3000/cars/${carId}`)
       .then(response => {
         setCar(response.data);
@@ -51,8 +51,8 @@ function DiagnosisQuiz() {
           console.log("API Response:", res);
           console.log("Response data:", res.data);
           setPrompts(res.data);
-          setAnswers({}); // Reset answers when category changes
-          setCurrentQuestionIndex(0); // Reset to first question
+          setAnswers({}); // reset answers when category changes
+          setCurrentQuestionIndex(0); // 
         })
         .catch((err) => {
           console.error("Error fetching prompts:", err);
@@ -73,7 +73,7 @@ function DiagnosisQuiz() {
     if (currentQuestionIndex < prompts.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      // If this is the last question, submit the answers
+      // if last question, submit the answers
       handleSubmit();
     }
   };
@@ -102,7 +102,7 @@ function DiagnosisQuiz() {
   if (loading) return <div className="p-4">Loading...</div>;
   if (error) return <div className="p-4 text-red-500">{error}</div>;
 
-  // Get current question
+  // get current question
   const currentPrompt = prompts[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === prompts.length - 1;
   const isAnswered = currentPrompt ? !!answers[currentPrompt.id] : false;

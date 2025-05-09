@@ -6,7 +6,7 @@ import DiagnosisResult from './DiagnosisResult';
 function Diagnosis() {
   const [car, setCar] = useState(null);
   const [result, setResult] = useState(null);
-  const [step, setStep] = useState(1); // Track the current step explicitly
+  const [step, setStep] = useState(1); // track the current step explicitly
 
   const reset = () => {
     setCar(null);
