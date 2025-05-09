@@ -19,8 +19,8 @@ const carImages = {
 
 // default images 
 const manufacturerDefaultImages = {
-  1: 'https://example.com/images/toyota-default.jpg', // toyota
-  2: 'https://example.com/images/bmw-default.jpg',    // bmw
+  1: 'https://pngimg.com/d/toyota_PNG1944.png', // toyota
+  2: 'https://w1.pngwing.com/pngs/126/784/png-transparent-luxury-bmw-car-bmw-m3-bmw-3-series-bmw-m5-bmw-m1-bmw-m6.png',    // bmw
   // add more manufacturers later
 };
 
