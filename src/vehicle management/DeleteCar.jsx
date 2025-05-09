@@ -8,7 +8,7 @@ function ManageCars() {
   const [error, setError] = useState(null);
   const [statusMessage, setStatusMessage] = useState({ message: '', type: '' });
   
-  // State for the edit modal
+  // edit modal
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingCar, setEditingCar] = useState(null);
   const [updatedCarData, setUpdatedCarData] = useState({
@@ -16,7 +16,6 @@ function ManageCars() {
     year: ''
   });
 
-  // Fetch cars when component mounts
   useEffect(() => {
     fetchCars();
   }, []);

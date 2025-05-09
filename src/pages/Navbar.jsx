@@ -5,7 +5,7 @@ import 'src/components/Navbar.css';
 function Navbar() {
   const location = useLocation();
   
-  // check if link is active
+  // highlights active tab.
   const isActive = (path) => location.pathname === path ? 'active' : '';
   
   return (
