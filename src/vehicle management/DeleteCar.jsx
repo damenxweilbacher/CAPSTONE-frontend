@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const API_URL = 'http://localhost:3000';
-
 function ManageCars() {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +24,7 @@ function ManageCars() {
   const fetchCars = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_URL}/cars`);
+      const response = await axios.get(`http://localhost:3000/cars`);
       console.log('Cars data:', response.data);
       setCars(response.data);
       setError(null);
@@ -45,18 +43,18 @@ function ManageCars() {
 
     try {
       setLoading(true);
-      await axios.delete(`${API_URL}/cars/${carId}`);
+      await axios.delete(`http://localhost:3000/cars/${carId}`);
       
-      // Update the cars list after deletion
+      // update list 
       setCars(cars.filter(car => car.id !== carId));
       
-      // Show success message
+      // success message
       setStatusMessage({
         message: 'Car deleted successfully!',
         type: 'success'
       });
       
-      // Clear success message after 3 seconds
+      // clear success message after 3 seconds
       setTimeout(() => {
         setStatusMessage({ message: '', type: '' });
       }, 3000);
@@ -67,7 +65,7 @@ function ManageCars() {
         type: 'error'
       });
       
-      // Clear error message after 3 seconds
+      // clear error
       setTimeout(() => {
         setStatusMessage({ message: '', type: '' });
       }, 3000);
@@ -77,7 +75,7 @@ function ManageCars() {
   };
 
   const openEditModal = (car) => {
-    console.log('Opening edit modal for car:', car);
+    console.log('edit modal:', car);
     setEditingCar(car);
     setUpdatedCarData({
       model: car.model,
@@ -105,27 +103,25 @@ function ManageCars() {
     try {
       setLoading(true);
       
-      console.log('Updating car with data:', updatedCarData);
+      console.log('updating car:', updatedCarData);
       const response = await axios.put(`http://localhost:3000/cars/${editingCar.id}`, updatedCarData);
-      console.log('Update response:', response.data);
+      console.log('updated data:', response.data);
       
-      // Update the car in the local state
+      // update the car in the local state
       setCars(cars.map(car => 
         car.id === editingCar.id ? {...car, ...updatedCarData} : car
       ));
       
-      // Show success message
+      // success message
       setStatusMessage({
         message: 'Car updated successfully!',
         type: 'success'
       });
       
-      // Clear success message after 3 seconds
       setTimeout(() => {
         setStatusMessage({ message: '', type: '' });
       }, 3000);
       
-      // Close the modal
       closeEditModal();
     } catch (err) {
       console.error('Error updating car:', err);
@@ -134,7 +130,7 @@ function ManageCars() {
         type: 'error'
       });
       
-      // Clear error message after 3 seconds
+      // clear error message
       setTimeout(() => {
         setStatusMessage({ message: '', type: '' });
       }, 3000);
@@ -156,7 +152,7 @@ function ManageCars() {
     <div className="p-4">
       <h2 className="text-xl mb-4">Manage Your Cars</h2>
       
-      {/* Status messages */}
+      {/* car message successful/failed */}
       {statusMessage.message && (
         <div className={`mb-4 p-2 rounded ${statusMessage.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
           {statusMessage.message}
@@ -179,7 +175,7 @@ function ManageCars() {
       ) : (
         <>
           <div className="mb-4">
-            <Link to="/add-car" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            <Link to="/add-car" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-green-600">
               Add Another Car
             </Link>
           </div>
@@ -188,6 +184,7 @@ function ManageCars() {
             <table className="min-w-full bg-white border">
               <thead>
                 <tr className="bg-gray-100">
+                  <th className="py-2 px-4 border text-left">Image</th>
                   <th className="py-2 px-4 border text-left">Year</th>
                   <th className="py-2 px-4 border text-left">Model</th>
                   <th className="py-2 px-4 border text-center">Actions</th>
@@ -196,19 +193,40 @@ function ManageCars() {
               <tbody>
                 {cars.map((car) => (
                   <tr key={car.id} className="hover:bg-gray-50">
+                    <td className="py-2 px-4 border">
+                      {car.image_url ? (
+                        <div className="flex items-center justify-center">
+                          <img 
+                            src={car.image_url} 
+                            alt={car.model}
+                            className="w-32 h-32 object-cover rounded"
+                            style={{
+                              width: '256px',
+                              height: '256px',
+                              objectFit: 'contain',
+                              backgroundColor: '#f8f8f8'
+                            }}
+                          />
+                        </div>
+                      ) : (
+                        <div className="w-32 h-32 bg-gray-200 flex items-center justify-center text-gray-500 text-xs rounded">
+                          No image
+                        </div>
+                      )}
+                    </td>
                     <td className="py-2 px-4 border">{car.year}</td>
                     <td className="py-2 px-4 border">{car.model}</td>
                     <td className="py-2 px-4 border text-center">
                       <button
                         onClick={() => openEditModal(car)}
-                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 mr-2"
+                        className="bg-blue-500 text-white px-5 py-5 rounded hover:bg-yellow-600 mr-2"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => handleDelete(car.id)}
                         disabled={loading}
-                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 disabled:opacity-50"
+                        className="bg-red-500 text-white px-5 py-5 rounded hover:bg-red-600 disabled:opacity-50"
                       >
                         Delete
                       </button>
@@ -221,7 +239,7 @@ function ManageCars() {
         </>
       )}
 
-      {/* Edit Modal */}
+        {/* modal */}
       {showEditModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">

@@ -5,15 +5,15 @@ import 'src/components/Navbar.css';
 function Navbar() {
   const location = useLocation();
   
-  // Function to check if a link is active
+  // check if link is active
   const isActive = (path) => location.pathname === path ? 'active' : '';
   
   return (
     <nav>
       <div>
         <div>
-          <h1>
-             ADS by D.W 2025©
+          <h1 className = "copyrighted name font-bold" font-family = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
+             ADS by D.W 
           </h1>
         </div>
         <div>

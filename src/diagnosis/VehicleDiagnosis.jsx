@@ -69,7 +69,7 @@ function VehicleDiagnosis() {
 
   return (
     <div className="container">
-      <h1> Try find your issue with our vehicle diagnostics app! </h1>
+      <h1 className = 'font-bold'> Try find your issue with our vehicle diagnostics app! </h1>
       
       <div className="card">
         <h2>Select Your Car</h2>

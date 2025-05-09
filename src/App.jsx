@@ -10,36 +10,27 @@ import DiagnosisQuiz from './diagnosis/DiagnosisQuiz';
 import DiagnosisResult from './diagnosis/DiagnosisResult';
 import CategoryQuiz from './diagnosis/CategoryQuiz';
 import About from './pages/About';
+import { CarsFooter } from './components/Footer';
 
 function App() {
   return (
     <Router>
-      <div className="app-container">
+      <div className="app-container min-h-screen flex flex-col">
         <Navbar />
-        <div className="content">
+        <div className="content flex-grow">
           <Routes>
-            {/* Home route */}
             <Route path="/" element={<Home />} />
-            
-            {/* Car management routes */}
             <Route path="/add-car" element={<AddCar />} />
             <Route path="/delete-car" element={<DeleteCar />} />
-            
-            {/* Diagnosis routes */}
             <Route path="/diagnosis" element={<VehicleDiagnosis />} />
             <Route path="/category/:categoryName" element={<CategoryQuiz />} />
             <Route path="/diagnosis/:category" element={<DiagnosisQuiz />} />
-            
-            {/* Results routes */}
             <Route path="/diagnoses/:category" element={<DiagnosisResult />} />
-            
-            {/* About route */}
             <Route path="/about" element={<About />} />
-            
-            {/* Catch-all route - redirect to home */}
             <Route path="*" element={<Home />} />
           </Routes>
         </div>
+        <CarsFooter />
       </div>
     </Router>
   );

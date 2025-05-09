@@ -17,13 +17,21 @@ function DiagnosisResult() {
         const response = await axios.get(`http://localhost:3000/category/${category}/diagnoses`); 
         // sends request to backend for diagnosis
         console.log("Diagnosis data from backend:", response.data);
-        // logs data received from the backend
-        setDiagnosisData(response.data);
-        setLoading(false);
+        
+        // 4-second delay 
+        setTimeout(() => {
+          setDiagnosisData(response.data);
+          setLoading(false);
+        }, 4000); 
+        
       } catch (err) {
         console.error("Error fetching diagnosis:", err);
-        setError("Failed to load diagnosis results");
-        setLoading(false);
+        
+        // add delay for error state
+        setTimeout(() => {
+          setError("Failed to load diagnosis results");
+          setLoading(false);
+        }, 4000);
       }
     };
 
@@ -31,31 +39,32 @@ function DiagnosisResult() {
   }, [category]);
 
   if (loading) {
-    return <div className="container">Loading diagnosis results...</div>;
+    return (
+      <div className="p-8 text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading your diagnosis results...</p>
+      </div>
+    );
   }
 
   if (error) {
     return <div className="container error-message">{error}</div>;
   }
 
-  // Function to extract name from the data structure
+  // extract name from the data structure
   const extractName = () => {
     if (!diagnosisData) return "Diagnosis Result";
     
-    // Try different possible paths to find the name
     if (diagnosisData.name) return diagnosisData.name;
     if (diagnosisData.diagnosis && diagnosisData.diagnosis.name) return diagnosisData.diagnosis.name;
     if (Array.isArray(diagnosisData) && diagnosisData.length > 0 && diagnosisData[0].name) return diagnosisData[0].name;
     
-    // If we can't find a name, return a default
     return "Diagnosis Result";
   };
 
-  // Function to extract description from the data structure
   const extractDescription = () => {
     if (!diagnosisData) return "No description available";
     
-    // Try different possible paths to find the description
     let description;
     
     if (diagnosisData.description) {
@@ -68,7 +77,7 @@ function DiagnosisResult() {
       return "No description available";
     }
     
-    // Format the description based on its type
+    // format data to print out correctly instead of entire object
     if (typeof description === 'object') {
       return JSON.stringify(description, null, 2);
     } else {
@@ -82,22 +91,30 @@ function DiagnosisResult() {
   return (
     <div className="container">    
       <div className="card">
-      <h1> Vehicle Status: {state.passedThreshold ? "Issues detected" : "No major issues detected"}</h1>
-      <h2>{diagnosisName}</h2>
-        <h3>{formattedDescription}</h3>
+      <h1 className='font-bold'> Vehicle Status: {state.passedThreshold ? "Issues detected" : "No major issues detected"}</h1>
+      <h2 className='font-bold'>{diagnosisName}</h2>
+        <h3 className='font-bold'>{formattedDescription}</h3>
       </div>
 
       
       {state && (
         <div className="card">
-          <h2>Quiz Statistics</h2>
+          <h2 className='font-bold'>Quiz Statistics</h2>
           <p>You are receiving this result because you answered YES to {state.yesAnswers} / {state.totalQuestions} questions</p>
         </div>
       )}
+
+      <div>
+        <h2 className='font-bold' > If you need more help regarding your vehicle, please contact:</h2>
+        <p> Toyota Service Guam: (671) 649-6410 </p>
+        <p> BMW Service Guam: (671) 649-6410</p>
+      </div>
       
+      <br/> 
+
       <div>
         <Link to="/diagnosis">
-          <button>Back to Diagnosis Options</button>
+          <button className='font-bold'>Back to Diagnosis Options</button>
         </Link>
       </div>
     </div>
