@@ -9,7 +9,7 @@ function About() {
       
       <div className="card">
         <p>
-          This app was built to help firts time car owners how to diagnose simple vehicle issues. With the 4 categories, you are prompted a quiz. Your answers are then examined and a diagnosis will be given out according to your answers.
+          This app was built to help first time car owners how to diagnose simple vehicle issues. With the 4 categories, you are prompted a quiz. Your answers are then examined and a diagnosis will be given out according to your answers.
         </p>
       </div>
       
@@ -27,7 +27,7 @@ function About() {
         </p>
         <br />
           <h3> Damen Weilbacher </h3>
-          <h3> Junior Software Engineer at Code School of Guam / Toyota Technician </h3>
+          <h3> Junior Software Engineer at The Code School of Guam / Toyota Technician </h3>
             <br/>
             <p> "LinkedIn": 
               <a href="https://www.linkedin.com/in/damen-weilbacher-82078734a/">https://www.linkedin.com/in/damen-weilbacher-82078734a/</a> 
